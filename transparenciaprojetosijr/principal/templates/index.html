@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+Página inicial
+{% endblock %}
+
+{% block header %}
+<header class="masthead" style="background-image: url('../static/img/espirito.png')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Transparência iJr</h1>
+            <span class="subheading">Saiba o que esta acontecendo na diretoria de projetos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-lg-8 col-md-10 mx-auto">
+    <div class="post-preview">
+        <h2 class="post-title">
+            Explore por projetos ou atividades da diretoria
+        </h2>
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5" align="center">
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/projetos.jpg" class="card-img-top img-thumbnail" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Projetos</h5>
+                        <p class="card-text">
+                            Atualização sobre a atual situação do projeto e entregas parciais.
+                        </p>
+                        <a href="{{url_for('projetos.todos_projetos')}}" class="btn btn-primary">Ver mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+
+            </div>
+            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5" align="center">
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/atividades.jpg" class="card-img-top img-fluid img-thumbnail" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Atividades</h5>
+                        <p class="card-text">
+                            Todas atividades/trabalho realizados pela diretoria de projetos.
+                        </p>
+                        <a href="{{url_for('projetos.todas_atividades')}}" class="btn btn-primary">Ver mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
