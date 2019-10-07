@@ -7,7 +7,7 @@ from transparenciaprojetosijr.usuarios.models import Usuario
 
 usuarios = Blueprint('usuarios', __name__, template_folder='templates')
 
-@usuarios.route("/adicionar", methods=['POST', 'GET'])
+@usuarios.route("/adicionar")
 def adicionar():
     login=LoginForm()
     adicionar=AdicionarUserForm()

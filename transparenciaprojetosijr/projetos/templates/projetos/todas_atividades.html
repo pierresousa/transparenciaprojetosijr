@@ -21,21 +21,79 @@ Projetos
 </header>
 {% endblock %}
 
+
 {% block conteudo %}
 <div class="col-lg-8 col-md-10 mx-auto">
-    <div class="post-preview">
-        <a href="post.html">
-        <h2 class="post-title">
-            Man must explore, and this is exploration at its greatest
-        </h2>
-        <h3 class="post-subtitle">
-            Problems look mighty small from 150 miles up
-        </h3>
-        </a>
-        <p class="post-meta">Posted by
-        <a href="#">Start Bootstrap</a>
-        on September 24, 2019</p>
-    </div>
-    <hr>
+  <div class="clearfix">
+    <a class="btn btn-primary float-left" href="" data-toggle="modal" data-target="#atividademodal">Nova atividade</a>
+  </div>
+
+{% if atividades %}
+{% for atividade in atividades %}
+  <div class="post-preview">
+      <a href="">
+      <h2 class="post-title">
+          {{ atividade.nome }}
+      </h2>
+      <h3 class="post-subtitle">
+          {{ atividade.descricao }}
+      </h3>
+      </a>
+      <p class="post-meta">Postado em
+          {{ atividade.data_criacao }}
+      </p>
+  </div>
+  <hr>
+{% endfor %}
+{% else %}
+<div class="post-preview">
+    <a href="">
+    <h2 class="post-title">
+       Não há atividades.
+    </h2>
+    
+    </a>
+
 </div>
+{% endif %}
+</div>
+
+<!-- Modal Login-->
+<div class="modal fade" id="projetomodal" tabindex="-1" role="dialog" aria-labelledby="atividadeModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Atividade</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form method="POST" action="{{url_for('projetos.addAtividade')}}">
+            <div class="modal-body">
+                {{ adicionarAtividade.hidden_tag() }}
+                <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Nome da Atividade</label>
+                    {{ adicionarAtividade.nome(class="form-control", placeholder="Nome da atividade") }}
+                </div>
+                </div>
+
+                <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Descrição da Atividade</label>
+                    {{ adicionarAtividade.descricao(class="form-control", placeholder="Descrição da atividade", rows="5") }}
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 20px;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                {{ adicionarAtividade.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        </div>
+    </div>
+  </div>
+
+
+
 {% endblock %}
