@@ -24,10 +24,11 @@ Projetos
 
 {% block conteudo %}
 <div class="col-lg-8 col-md-10 mx-auto">
+{% if current_user.urole=="admin" %}
   <div class="clearfix">
     <a class="btn btn-primary float-left" href="" data-toggle="modal" data-target="#atividademodal">Nova atividade</a>
   </div>
-
+{% endif %}
 {% if atividades %}
 {% for atividade in atividades %}
   <div class="post-preview">
