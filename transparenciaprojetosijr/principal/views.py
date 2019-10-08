@@ -99,19 +99,20 @@ def enviarJornal():
             escolhas.append((projeto.data_criacao,projeto.data_criacao))
     
     escolhaJornal.jornal.choices = escolhas
-    
-    if escolhaJornal.submit.data:
-        projetos = Projetos.query.filter(Projetos.data_criacao.contains(escolhaJornal.jornal.data))
-    
-        all_emails = Emails.query.all()
-        for email_ in all_emails:
-            msg = Message("Transparência Ijr - Atualização de Projetos", sender="transparencia@ijunior.com.br", recipients=[email_.email])
-            msg.html = render_template('jornaltemplate.html',projetos=projetos)
-            mail.send(msg)
+    if escolhas:
+        if escolhaJornal.submit.data:
+            projetos = Projetos.query.filter(Projetos.data_criacao.contains(escolhaJornal.jornal.data))
         
-        flash("Email enviado com sucesso","success")
-        return redirect(url_for('principal.index'))
-
+            all_emails = Emails.query.all()
+            for email_ in all_emails:
+                msg = Message("Transparência Ijr - Atualização de Projetos", sender="transparencia@ijunior.com.br", recipients=[email_.email])
+                msg.html = render_template('jornaltemplate.html',projetos=projetos)
+                mail.send(msg)
+            
+            flash("Email enviado com sucesso","success")
+            return redirect(url_for('principal.index'))
+    else:
+        flash("Não há atualizações de projetos cadastrados.","warning")
 
     return render_template("enviarJornal.html", login=login, adicionarUser=adicionarUser, 
                             logout=logout, escolhaJornal=escolhaJornal)
