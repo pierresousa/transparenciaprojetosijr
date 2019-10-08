@@ -41,7 +41,7 @@ Projetos
       </h3>
       </a>
       <p class="post-meta">Postado em
-          {{ atividade.data_criacao }}  |  <a href="{{url_for('projetos.excluir_atividade',atividade_id=atividade.id)}}" class="badge badge-danger">Excluir</a>
+          {{ atividade.data_criacao }} {% if current_user.urole=="admin" %}| <a href="{{url_for('projetos.excluir_atividade',atividade_id=atividade.id)}}" class="badge badge-danger">Excluir</a>{% endif %}
       </p>
   </div>
   <hr>

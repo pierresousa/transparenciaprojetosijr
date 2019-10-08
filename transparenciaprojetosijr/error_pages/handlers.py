@@ -4,8 +4,8 @@ error_pages = Blueprint('error_pages',__name__)
 
 @error_pages.app_errorhandler(404)
 def error_404(error):
-	return "render_template('error_pages/404.html')" , 404
+	return "<h1>Essa página não existe</h1>" , 404
 
 @error_pages.app_errorhandler(403)
 def error_403(error):
-	return "render_template('error_pages/403.html')" , 403
+	return "<h1>Acesso negado</h1>" , 403

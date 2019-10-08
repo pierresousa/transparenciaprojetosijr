@@ -85,9 +85,9 @@ def excluir_projeto(projeto_id):
 
 
 @projetos.route('/excluir_atividade/<int:atividade_id>', methods=['POST', 'GET'])
-def excluir_atividade(projeto_id):
+def excluir_atividade(atividade_id):
 
-    id = aatividade_id
+    id = atividade_id
     atividadedelete = Atividades.query.get_or_404(id)
 
     db.session.delete(atividadedelete)
