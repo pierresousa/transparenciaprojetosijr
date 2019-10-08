@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+Emails
+{% endblock %}
+
+
+{% block header %}
+<header class="masthead" style="background-image: url('../static/img/espirito.png')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Todos Emails</h1>
+            <span class="subheading">Controle a lista de email que receberão as novidades do sistema</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block conteudo %}
+<div class="col-lg-10 col-md-12 mx-auto" style="margin-bottom: 30px;">
+  <div class="row">
+    <div class="clearfix">
+      <a class="btn btn-primary float-left" href="#" data-toggle="modal" data-target="#emailmodal">Adicionar email</a>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 30px;">
+    <div class="site-heading">
+        <h1>
+            Todos emails
+        </h1>
+    </div>
+  </div>
+  <div class="container">
+    {% for email in allEmails %}
+    <div class="row" style="margin-bottom: -30px;">
+        <p class="post-meta">{{ email.email }} <a href="{{url_for('principal.excluir_email', email_id=email.id)}}" class="badge badge-danger">Excluir</a></p>
+    </div>
+    {% endfor %}
+  </div>  
+</div>
+
+
+
+<!-- Modal email-->
+<div class="modal fade" id="emailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cadastrar Email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="">
+                <div class="modal-body">
+                    {{ emailform.hidden_tag() }}
+                    <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>Email</label>
+                        {{ emailform.email(class="form-control", placeholder="Email") }}
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    {{ emailform.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+{% endblock %}
