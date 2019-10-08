@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Jornal
+Enviar Jornal
 {% endblock %}
 
 
@@ -13,7 +13,7 @@ Jornal
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>Jornal Semanal</h1>
-            <span class="subheading">Envie o jornal para os emails já cadastrados</span>
+            <span class="subheading">Escolhar o jornal a ser enviado para os emails já cadastrados</span>
           </div>
         </div>
       </div>
@@ -27,9 +27,17 @@ Jornal
     <div class="site-heading">
         <h1>Escolha o jornal de acordo com o dia da publicação para enviar.</h1>
     </div>
-    <div class="clearfix" style="margin-top: 20px;">
-      <a class="btn btn-primary float-left" href="{{url_for('principal.enviarJornal')}}">Ver Jornais</a>
-    </div>
+
+    <form action="{{url_for('principal.enviarJornal')}}" class="form-group" style="margin-top: 30px;" method="POST">
+        {{ escolhaJornal.hidden_tag() }}
+        <div class="form-check">
+          {{ escolhaJornal.jornal(style="list-style-type: none;") }}
+        </div>
+        <div class="clearfix" style="margin-top: 20px;">
+            {{ escolhaJornal.submit (class="btn btn-primary float-left") }}
+        </div>    
+    </form>
+
   </div>
     
 </div>

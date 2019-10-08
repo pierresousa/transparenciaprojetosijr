@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, redirect, flash, request, abort, url_for
+from flask import Blueprint, render_template, redirect, flash, request, abort, url_for, redirect
 from transparenciaprojetosijr.usuarios.forms import LoginForm, AdicionarUserForm, LogoutForm
-from transparenciaprojetosijr.principal.forms import AdicionarEmailForm
+from transparenciaprojetosijr.principal.forms import AdicionarEmailForm, EscolhaJornalForm
 from transparenciaprojetosijr.principal.models import Emails
-from transparenciaprojetosijr import db
+from transparenciaprojetosijr import db, mail
+from transparenciaprojetosijr.projetos.models import Projetos
+from flask_mail import Message
 
 principal = Blueprint('principal', __name__, template_folder='templates')
 
@@ -64,3 +66,52 @@ def excluir_email(email_id):
     db.session.commit()
 
     return redirect(url_for('principal.email'))
+
+@principal.route("/jornal", methods=['POST', 'GET'])
+def jornal():
+    login = LoginForm()
+    adicionarUser = AdicionarUserForm()
+    logout = LogoutForm()
+
+    return render_template("jornal.html", login=login, adicionarUser=adicionarUser, 
+                            logout=logout)
+
+
+@principal.route("/enviarjornal", methods=['POST', 'GET'])
+def enviarJornal():
+    login = LoginForm()
+    adicionarUser = AdicionarUserForm()
+    logout = LogoutForm()
+    escolhaJornal = EscolhaJornalForm()
+    escolhas=[]
+    allProjetos = Projetos.query.all()
+    check = False
+
+    for projeto in allProjetos:
+        if escolhas:        
+            for escolha in escolhas:
+                if projeto.data_criacao == escolha[0]:
+                    check=True
+            if check==False:
+                escolhas.append((projeto.data_criacao,projeto.data_criacao))
+
+        else:
+            escolhas.append((projeto.data_criacao,projeto.data_criacao))
+    
+    escolhaJornal.jornal.choices = escolhas
+    
+    if escolhaJornal.submit.data:
+        projetos = Projetos.query.filter(Projetos.data_criacao.contains(escolhaJornal.jornal.data))
+    
+        all_emails = Emails.query.all()
+        for email_ in all_emails:
+            msg = Message("Transparência Ijr - Atualização de Projetos", sender="transparencia@ijunior.com.br", recipients=[email_.email])
+            msg.html = render_template('jornaltemplate.html',projetos=projetos)
+            mail.send(msg)
+        
+        flash("Email enviado com sucesso","success")
+        return redirect(url_for('principal.index'))
+
+
+    return render_template("enviarJornal.html", login=login, adicionarUser=adicionarUser, 
+                            logout=logout, escolhaJornal=escolhaJornal)

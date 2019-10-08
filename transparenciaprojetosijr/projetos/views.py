@@ -14,10 +14,9 @@ def todos_projetos():
     logout = LogoutForm()
     adicionarProjeto = AdicionarProjetoForm()
 
-    page = request.args.get('page', 1, type=int)
-    projetosXsemana = db.session.query(Semana, Projetos).outerjoin(Projetos, Semana.data == Projetos.data_criacao)
+    allProjetos = Projetos.query.all()
 
-    return render_template("todos_projetos.html", login=login, adicionarUser=adicionarUser, logout=logout, adicionarProjeto=adicionarProjeto, projetosXsemana=projetosXsemana)
+    return render_template("todos_projetos.html", login=login, adicionarUser=adicionarUser, logout=logout, adicionarProjeto=adicionarProjeto, allProjetos=allProjetos)
 
 @projetos.route("/todasatividades")
 def todas_atividades():

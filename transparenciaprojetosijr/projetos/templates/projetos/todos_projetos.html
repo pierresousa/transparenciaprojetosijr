@@ -29,19 +29,19 @@ Projetos
     <a class="btn btn-primary float-left" href="" data-toggle="modal" data-target="#projetomodal">Nova atualização</a>
   </div>
 {% endif %}
-  {% if projetosXsemana[1] %}
-{% for projetos in projetosXsemana %}
+  {% if allProjetos %}
+{% for projetos in allProjetos %}
   <div class="post-preview">
       <a href="">
       <h2 class="post-title">
-          {{ projetos[1].nome }}
+          {{ projetos.nome }}
       </h2>
       <h3 class="post-subtitle">
-          {{ projetos[1].descricao }}
+          {{ projetos.descricao }}
       </h3>
       </a>
       <p class="post-meta">Postado em
-          {{ projetos[1].data_criacao }}
+          {{ projetos.data_criacao }}
       </p>
   </div>
   <hr>
