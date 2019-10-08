@@ -41,7 +41,7 @@ Projetos
       </h3>
       </a>
       <p class="post-meta">Postado em
-          {{ projetos.data_criacao }}
+          {{ projetos.data_criacao }} |  <a href="{{url_for('projetos.excluir_projeto',projeto_id=projetos.id)}}" class="badge badge-danger">Excluir</a>
       </p>
   </div>
   <hr>

@@ -70,3 +70,27 @@ def addAtividade():
 
         flash("Atualização de atividade feita com sucesso.", "success")
     return redirect(url_for('projetos.todas_atividades'))
+
+
+@projetos.route('/excluir_projeto/<int:projeto_id>', methods=['POST', 'GET'])
+def excluir_projeto(projeto_id):
+
+    id = projeto_id
+    projetodelete = Projetos.query.get_or_404(id)
+
+    db.session.delete(projetodelete)
+    db.session.commit()
+
+    return redirect(url_for('projetos.todos_projetos'))
+
+
+@projetos.route('/excluir_atividade/<int:atividade_id>', methods=['POST', 'GET'])
+def excluir_atividade(projeto_id):
+
+    id = aatividade_id
+    atividadedelete = Atividades.query.get_or_404(id)
+
+    db.session.delete(atividadedelete)
+    db.session.commit()
+
+    return redirect(url_for('projetos.todas_atividades'))
