@@ -5,6 +5,7 @@ from transparenciaprojetosijr.principal.models import Emails
 from transparenciaprojetosijr import db, mail
 from transparenciaprojetosijr.projetos.models import Projetos
 from flask_mail import Message
+from transparenciaprojetosijr import login_required
 
 principal = Blueprint('principal', __name__, template_folder='templates')
 
@@ -16,7 +17,9 @@ def index():
 
     return render_template("index.html", login=login, adicionarUser=adicionarUser, logout=logout)
 
+
 @principal.route("/controle")
+@login_required(['admin'])
 def controle():
     login = LoginForm()
     adicionarUser = AdicionarUserForm()
@@ -26,6 +29,7 @@ def controle():
 
 
 @principal.route("/emails", methods=['POST', 'GET'])
+@login_required(['admin'])
 def email():
     login = LoginForm()
     adicionarUser = AdicionarUserForm()
@@ -57,6 +61,7 @@ def email():
                             logout=logout, emailform=emailform, allEmails=allEmails)
 
 @principal.route('/excluir_email/<int:email_id>', methods=['POST', 'GET'])
+@login_required(['admin'])
 def excluir_email(email_id):
 
     id = email_id
@@ -68,6 +73,7 @@ def excluir_email(email_id):
     return redirect(url_for('principal.email'))
 
 @principal.route("/jornal", methods=['POST', 'GET'])
+@login_required(['admin'])
 def jornal():
     login = LoginForm()
     adicionarUser = AdicionarUserForm()
@@ -78,6 +84,7 @@ def jornal():
 
 
 @principal.route("/enviarjornal", methods=['POST', 'GET'])
+@login_required(['admin'])
 def enviarJornal():
     login = LoginForm()
     adicionarUser = AdicionarUserForm()
@@ -105,7 +112,7 @@ def enviarJornal():
         
             all_emails = Emails.query.all()
             for email_ in all_emails:
-                msg = Message("Transparência Ijr - Atualização de Projetos", sender="transparencia@ijunior.com.br", recipients=[email_.email])
+                msg = Message("Transparência Ijr - Atualização de Projetos "+escolhaJornal.jornal.data, sender="transparencia@ijunior.com.br", recipients=[email_.email])
                 msg.html = render_template('jornaltemplate.html',projetos=projetos)
                 mail.send(msg)
             
