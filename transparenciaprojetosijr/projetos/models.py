@@ -7,8 +7,8 @@ class Projetos(db.Model):
     __tablename__ = 'projetos'
 
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String)
-    descricao = db.Column(db.String)
+    nome = db.Column(db.Text)
+    descricao = db.Column(db.Text)
     data_criacao = db.Column(db.Date, default=datetime.today())
 
     def __init__(self, nome, descricao):
@@ -35,8 +35,8 @@ class Atividades(db.Model):
     __tablename__ = 'atividades'
 
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String)
-    descricao = db.Column(db.String)
+    nome = db.Column(db.Text)
+    descricao = db.Column(db.Text)
     data_criacao = db.Column(db.Date, default=datetime.today())
 
     def __init__(self, nome, descricao):

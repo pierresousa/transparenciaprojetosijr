@@ -29,8 +29,14 @@ mail = Mail(app)
 ################## BANCO DE DADOS ##########################
 ############################################################
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+"""basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+"""
+
+app.config['SQLALCHEMY_DATABASE_URI'] =  "mysql+pymysql://projetosijr:ijrprojects@projetosijr.mysql.dbaas.com.br/projetosijr"
+app.config['SQLALCHEMY_POOL_TIMEOUT'] = 300
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 30
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

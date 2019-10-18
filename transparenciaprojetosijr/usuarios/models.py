@@ -12,11 +12,11 @@ class Usuario(db.Model, UserMixin):
 	__tablename__ = "usuarios"
 
 	id = db.Column(db.Integer, primary_key=True)
-	nome = db.Column(db.String(120), nullable=False)
-	email = db.Column(db.String(120), nullable=False, unique=True)
-	senha = db.Column(db.String, nullable=False)
+	nome = db.Column(db.Text, nullable=False)
+	email = db.Column(db.String(120), nullable=False)
+	senha = db.Column(db.Text, nullable=False)
 
-	urole = db.Column(db.String(80), server_default="user", nullable=False)
+	urole = db.Column(db.Text, default="user", nullable=False)
 
 
 	def __init__(self, nome, email, senha, cargo):
